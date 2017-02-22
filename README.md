@@ -3,7 +3,11 @@
 ### Status on all network devices
 ifconfig
 
-### Useful background links
+### Set/change network name for the rasp
+sudo pico /etc/hostname    ->  smartmeter-12345678
+sudo reboot   (har inte lyckats starta om endast tjänsten eller nätverket)
+
+### Useful background wifi links
 https://linuxcommando.blogspot.se/2013/10/how-to-connect-to-wpawpa2-wifi-network.html
 https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
