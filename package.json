@@ -1,0 +1,16 @@
+{
+  "name": "network",
+  "version": "1.0.0",
+  "description": "Check network connection and configure wifi",
+  "scripts": {
+    "start": "node src/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sveasmart/network.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "adafruit-mcp23008-ssd1306-node-driver": "1.0.13"
+  }
+}
