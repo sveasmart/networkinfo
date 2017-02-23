@@ -23,9 +23,9 @@ try {
 
 function showNetworkStatus() {
   if (connectionCheck.checkInternetConnection()) {
-    display.text("Has Internet Connection");
+    display.text("OK - Connected to Internet");
   } else {
-    display.text("No Internet Connection!");
+    display.text("WARNING - No Internet Connection!");
   }
 }
 
