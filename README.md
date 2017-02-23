@@ -1,38 +1,48 @@
 # Network
+A piece of software that checks network and set up wifi
 
-### Status on all network devices
+## Environment setup
+1. Install node and npm (if you don't already have it)
+2. npm install
+
+## Run
+npm start
+
+## Some useful commands and links
+
+##### Status on all network devices
 ifconfig
 
-### Set/change network name for the rasp
+##### Set/change network name for the rasp
 sudo pico /etc/hostname    ->  smartmeter-12345678
 sudo reboot   (har inte lyckats starta om endast tjänsten eller nätverket)
 
-### Useful background wifi links
+##### Useful background wifi links
 https://linuxcommando.blogspot.se/2013/10/how-to-connect-to-wpawpa2-wifi-network.html
 https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
-### Edit wifi network settings
+##### Edit wifi network settings
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
-### Turn Wifi on/off 
+##### Turn Wifi on/off
 sudo ifdown wlan0
 sudo ifup wlan0
 
-### Wireless device up / down
+##### Wireless device up / down
 ip link show wlan0
 
-### Check the connection status
+##### Check the connection status
 /sbin/iw wlan0 link
 /sbin/iw wlan0 link | grep SSID | awk '{print $1}'
 -> SSID:   
 if wlan0 is up
 
-### Set up with button
+##### Set up with button
 wpa_cli scan
 wpa_cli scan_results
 wpa_cli wps_pbc '70:8b:cd:e7:ac:d0'
 
-### Check that you are all set
+##### Check that you are all set
 /sbin/iw wlan0 link
 Connected to 70:8b:cd:e7:ac:d0 (on wlan0)
 	SSID: ASUS-RT-N12-WAP-BUTTON
@@ -52,6 +62,6 @@ Connected to 70:8b:cd:e7:ac:d0 (on wlan0)
 /sbin/iw wlan0 link | grep SSID | echo $?
 0 (SSID finns, funkar), 1 ( funkar inte)
 
-### Ping external through wlan0
+##### Ping external through wlan0
 ping -c 1 -I wlan0 www.kth.se
 exitCode :0 om ok, annars 1 eller 2 eller något helt annat
