@@ -1,0 +1,15 @@
+# systemd service script for this app
+# https://www.freedesktop.org/software/systemd/man/bootup.html
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html
+
+[Unit]
+Description=NetworkInfo
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/apps/networkinfo/start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

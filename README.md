@@ -1,5 +1,5 @@
 # Network
-A piece of software that checks network and set up wifi
+A rasp app the checks network status and displays on tab1
 
 ## Environment setup
 1. Install node and npm (if you don't already have it)

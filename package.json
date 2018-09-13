@@ -1,16 +1,19 @@
 {
-  "name": "network",
-  "version": "1.0.0",
-  "description": "Check network connection and configure wifi",
+  "name": "networkinfo",
+  "description": "Checks network status and writes on the display",
   "scripts": {
     "start": "node src/start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sveasmart/network.git"
+    "url": "git+https://github.com/sveasmart/networkinfo.git"
   },
   "license": "MIT",
   "dependencies": {
-    "adafruit-mcp23008-ssd1306-node-driver": "1.0.13"
+    "config": "1.24.0",
+    "js-yaml": "3.7.0",
+    "json-rpc2": "1.0.2",
+    "promise": "7.1.1",
+    "promise-retry": "1.1.1"
   }
 }

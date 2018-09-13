@@ -1,0 +1,29 @@
+#------------------------------------------------
+# This is the default configuration for deviceInfo.
+# Override it by creating a local.yml next to it.
+# The config isn't hot-reloaded, so you need to restart
+# the meter if you change anything.
+#------------------------------------------------
+
+# Which IP adress to ping
+pingIp: "8.8.8.8"
+
+# Which domain to ping
+pingDomain: "kth.se"
+
+# If true, I log everything that I write to the display
+logDisplay: "false"
+
+# Which port the display RPC server is listening on.
+# https://github.com/sveasmart/display
+# Leave it blank or 0 if we should just use console.log instead of trying to talk to a display
+displayRpcPort: 5000
+
+# Which tab on the display to display network info on
+# (only relevant if displayRpcPort is given)
+displayTab: "tab1"
+
+# How often should network test be run.
+# 0 means it should only be run on startup.
+testFrequencySeconds: 10
+

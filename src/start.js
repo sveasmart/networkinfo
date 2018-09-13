@@ -1,47 +1,30 @@
-const connectionCheck = require('./connectionCheck');
+const DisplayClient = require("./display_client")
+const config = require('./config').loadConfig()
 
-let display;
-let buttons;
-
-try {
-  const adafruit = require('adafruit-mcp23008-ssd1306-node-driver');
-  if (adafruit.hasDriver()) {
-    console.log("Adafruit is available, so this device appears to have a display :)");
-    display = new adafruit.DisplayDriver();
-    buttons = new adafruit.ButtonDriver();
-  } else {
-    console.log("Adafruit is not available, so we'll fake the display using the console");
-    display = new adafruit.FakeDisplayDriver();
-    buttons = new adafruit.FakeButtonDriver();
-  }
-
-} catch (err) {
-  console.log("Failed to load Adafruit, so we'll fake the display using the console" + err);
-  display = null;
-  buttons = null;
+let displayClient
+if (config.displayRpcPort && config.displayRpcPort != 0 && config.displayRpcPort != "0") {
+  console.log("I will talk to a display via RPC on port " + config.displayRpcPort)
+  displayClient = new DisplayClient(config.displayRpcPort, config.logDisplay)
+} else {
+  console.log("No valid displayRpcPort set, so I'll use the console")
+  displayClient = null
 }
 
-function showNetworkStatus() {
-  if (connectionCheck.checkInternetConnection()) {
-    display.text("OK - Connected to Internet");
+function displayLine(row, text, wrap = false) {
+  if (text) {
+    if (displayClient) {
+      displayClient.callAndRetry('setRowText', [text, row, wrap, config.displayTab])
+    } else {
+      console.log("Display line " + row + ": " + text)
+    }
   } else {
-    display.text("WARNING - No Internet Connection!");
+    if (displayClient) {
+      displayClient.callAndRetry('clearRow', [row, config.displayTab])
+    } else {
+      console.log("Clear display line " + row)
+    }
   }
 }
 
-/*
- if (buttons) {
- buttons.watchAllButtons(function(buttonId) {
- console.log("button pressed " + buttonId)
- if (buttonId == 0) {
- showQrCode()
- } else if (buttonId == 1) {
- showRegistrationUrl()
- } else {
- }
- })
-
- }*/
-
-setInterval(showNetworkStatus, 1000);
-
+displayLine(0, "Network info")
+displayLine(2, "Not implemented yet...", true)
