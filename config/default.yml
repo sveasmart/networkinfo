@@ -21,7 +21,7 @@ displayRpcPort: 5000
 
 # If this is set, then this app can receive click events via RPC.
 # This clicks trigger the actual network tests.
-buttonNotificationPort: 6000
+buttonNotificationPort: 6001
 
 # Which tab on the display to display network info on
 # (only relevant if displayRpcPort is given)

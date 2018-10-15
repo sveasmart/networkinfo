@@ -2,6 +2,8 @@ const DisplayClient = require("./display_client")
 const config = require('./config').loadConfig()
 var rpc = require('json-rpc2')
 
+const connectionCheck = require("./connectionCheck")
+
 let displayClient
 if (config.displayRpcPort && config.displayRpcPort != 0 && config.displayRpcPort != "0") {
   console.log("I will talk to a display via RPC on port " + config.displayRpcPort)
@@ -31,7 +33,27 @@ function displayLine(row, text, wrap = false) {
 
 function buttonClicked() {
   console.log("Received a button click event via RPC")
-  displayLine(1, "Hello there")
+  /*
+  displayLine(2, "Testing cable...")
+
+
+  try {
+    const result = connectionCheck.checkCable()
+    displayLine(2, result, false)
+  } catch (err) {
+    console.log("checkCable threw error", err)
+    displayLine(2, err.toString(), false)
+  }
+  */
+  displayLine(4, "Ping IP: ...")
+  try {
+    connectionCheck.pingIp()
+    displayLine(4, "Ping IP: OK")
+  } catch (err) {
+    console.log("pingIp threw error", err)
+    displayLine(4, "Ping IP: FAIL")
+  }
+
 }
 
 
@@ -59,7 +81,6 @@ function startRpcServerAndExposeButtonNotificationMethod() {
 }
 
 displayLine(0, "Network info")
-displayLine(2, "Not implemented yet...", true)
-
+displayLine(1, "Press button")
 
 startRpcServerAndExposeButtonNotificationMethod()
