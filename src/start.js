@@ -1,6 +1,7 @@
 const DisplayClient = require("./display_client")
 const config = require('./config').loadConfig()
-var rpc = require('json-rpc2')
+const rpc = require('json-rpc2')
+const moment = require('moment')
 
 const connectionCheck = require("./connectionCheck")
 
@@ -33,28 +34,64 @@ function displayLine(row, text, wrap = false) {
 
 function buttonClicked() {
   console.log("Received a button click event via RPC")
-  /*
-  displayLine(2, "Testing cable...")
 
+  let row = 0
+  const dateString = moment().format("YYYY-MM-DD HH:mm")
+  displayLine(row, dateString)
 
+  row = 1
+  displayLine(row, "Cable ...")
+   try {
+     connectionCheck.checkCable()
+     displayLine(row, "Cable OK")
+   } catch (err) {
+     console.log("checkCable threw error", err)
+     displayLine(row, "Cable FAIL")
+   }
+
+  row = 2
+  displayLine(row, "Checking My IP..")
   try {
-    const result = connectionCheck.checkCable()
-    displayLine(2, result, false)
-  } catch (err) {
-    console.log("checkCable threw error", err)
-    displayLine(2, err.toString(), false)
-  }
-  */
-  displayLine(4, "Ping IP: ...")
-  try {
-    connectionCheck.pingIp()
-    displayLine(4, "Ping IP: OK")
+    const myIp = connectionCheck.getMyIp()
+    displayLine(row, myIp)
   } catch (err) {
     console.log("pingIp threw error", err)
-    displayLine(4, "Ping IP: FAIL")
+    displayLine(row, "My IP is unknown")
+  }
+
+  row = 3
+  displayLine(row, "Ping IP ...")
+  try {
+    connectionCheck.pingIp()
+    displayLine(row, "Ping IP OK")
+  } catch (err) {
+    console.log("pingIp threw error", err)
+    displayLine(row, "Ping IP FAIL")
+  }
+
+  row = 4
+  displayLine(row, "Ping KTH ...")
+  try {
+    connectionCheck.pingKth()
+    displayLine(row, "Ping KTH OK")
+  } catch (err) {
+    console.log("pingKth threw error", err)
+    displayLine(row, "Ping KTH FAIL")
+  }
+
+  row = 5
+  displayLine(row, "Ping Smart ...")
+  try {
+    connectionCheck.pingSmart()
+    displayLine(row, "Ping Smart OK")
+  } catch (err) {
+    console.log("pingSmart threw error", err)
+    displayLine(row, "Ping Smart FAIL")
   }
 
 }
+
+
 
 
 function startRpcServerAndExposeButtonNotificationMethod() {

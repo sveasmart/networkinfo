@@ -8,12 +8,28 @@ function pingIp() {
   return run("ping -W 5 -c 1 8.8.8.8")
 }
 
+function pingKth() {
+  return run("ping -W 5 -c 1 kth.se")
+}
+
+function pingSmart() {
+  return run("ping -W 5 -c 1 smartmeter.se")
+}
+
+function getMyIp() {
+  return run("ipconfig getifaddr en0")
+}
+
+function httpSmart() {
+    
+}
+
 function run(command) {
   console.log("Calling " + command)
   const result = childProcess.execSync(command)
   const output = result.toString()
   console.log("  Output: ", output)
-  return output
+  return output.trim()
 }
 
 // networkInterface = "eth0" or "wlan0" on raspberry
@@ -36,3 +52,6 @@ function checkInternetConnection(networkInterface) {
 exports.checkInternetConnection = checkInternetConnection
 exports.checkCable = checkCable
 exports.pingIp = pingIp
+exports.pingKth = pingKth
+exports.getMyIp = getMyIp
+exports.pingSmart = pingSmart
