@@ -12,6 +12,7 @@ exports.loadConfig = function() {
 
     logDisplay: getBool('logDisplay'),
     displayRpcPort: getOptionalString("displayRpcPort"),
+    buttonNotificationPort: getOptionalString("buttonNotificationPort"),
 
     displayTab: getString("displayTab"),
 

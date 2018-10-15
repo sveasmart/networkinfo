@@ -1,5 +1,6 @@
 const DisplayClient = require("./display_client")
 const config = require('./config').loadConfig()
+var rpc = require('json-rpc2')
 
 let displayClient
 if (config.displayRpcPort && config.displayRpcPort != 0 && config.displayRpcPort != "0") {
@@ -26,5 +27,39 @@ function displayLine(row, text, wrap = false) {
   }
 }
 
+
+
+function buttonClicked() {
+  console.log("Received a button click event via RPC")
+  displayLine(1, "Hello there")
+}
+
+
+function startRpcServerAndExposeButtonNotificationMethod() {
+  const server = rpc.Server.$create({
+    'websocket': true, // is true by default
+    'headers': { // allow custom headers is empty by default
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+
+  // listen creates an HTTP server on 127.0.0.1 only
+  server.listen(config.buttonNotificationPort, '127.0.0.1');
+
+  server.expose("buttonClicked", (args, opts, callback) => {
+    try {
+      buttonClicked()
+    } catch (err) {
+      console.log("Something went wrong in buttonClicked", err)
+    }
+    callback(null) //Returns null to the display. Sort of.
+  })
+
+  console.log("Networkinfo app is now listening for button clicks via RPC port " + config.buttonNotificationPort)
+}
+
 displayLine(0, "Network info")
 displayLine(2, "Not implemented yet...", true)
+
+
+startRpcServerAndExposeButtonNotificationMethod()
