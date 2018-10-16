@@ -18,7 +18,7 @@ function pingSmart() {
 
 function getMyIp() {
   //Mac: return run("ipconfig getifaddr en0")
-  return run("ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'")
+  return run("ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'")
 }
 
 function httpSmart() {
