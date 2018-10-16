@@ -1,7 +1,7 @@
 const childProcess = require('child_process')
 
 function checkCable() {
-  return run("cat /sys/class/net/eth0/{carrier,operstate}")
+  return run("cat /sys/class/net/eth0/operstate")
 }
 
 function pingIp() {
