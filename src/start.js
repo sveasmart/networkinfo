@@ -32,7 +32,7 @@ function displayLine(row, text, wrap = false) {
 
 function clearAllLines() {
   if (displayClient) {
-    displayClient.call('clearTab', [config.displayTab])
+    displayClient.call('clear', [config.displayTab])
   } else {
     console.log("Clear all lines")
   }
