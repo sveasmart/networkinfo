@@ -51,8 +51,8 @@ function buttonClicked() {
   row = 1
   displayLine(row, "Cable ...")
    try {
-     connectionCheck.checkCable()
-     displayLine(row, "Cable OK")
+     const output = connectionCheck.checkCable()
+     displayLine(row, "Cable: " + output)
    } catch (err) {
      console.log("checkCable threw error", err)
      displayLine(row, "Cable FAIL")
