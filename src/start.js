@@ -62,10 +62,14 @@ function buttonClicked() {
   displayLine(row, "Checking My IP..")
   try {
     const myIp = connectionCheck.getMyIp()
-    displayLine(row, myIp)
+    if (myIp) {
+      displayLine(row, myIp)
+    } else {
+      displayLine(row, "No IP address")
+    }
   } catch (err) {
     console.log("pingIp threw error", err)
-    displayLine(row, "My IP is unknown")
+    displayLine(row, "No IP address")
   }
 
   row = 3
